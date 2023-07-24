@@ -1,1 +1,0 @@
-Solution to the web pack project
