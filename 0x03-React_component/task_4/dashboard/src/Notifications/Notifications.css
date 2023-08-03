@@ -1,0 +1,31 @@
+.Notifications {
+    border: 1px dashed red;
+    padding: 10px;
+    position: absolute;
+    width: 300px;
+    right: 10px;
+    top: 36px;
+}
+
+.Notifications button img {
+    width: 10px;
+}
+
+[data-priority="default"] {
+    color: #0d0563;
+}
+
+[data-priority="urgent"] {
+    color: #e0354b;
+}
+[data-notification-type="default"] {
+    color: darkblue;
+}
+[data-notification-type="urgent"],
+[data-urgent] {
+    color: red;
+}
+.menuItem {
+    text-align: right;
+}
+
