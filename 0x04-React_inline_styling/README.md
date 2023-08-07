@@ -1,0 +1,1 @@
+Solution to the 0x04. React inline styling task
