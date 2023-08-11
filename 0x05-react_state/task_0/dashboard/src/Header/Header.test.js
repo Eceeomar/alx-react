@@ -1,10 +1,20 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import Header from './Header';
+import { StyleSheetTestUtils } from 'aphrodite';
 
 describe('<Header />', () => {
+  beforeEach(() => {
+    StyleSheetTestUtils.suppressStyleInjection();
+  });
+
+  afterEach(() => {
+    StyleSheetTestUtils.clearBufferAndResumeStyleInjection();
+  });
+
   it('renders without crashing', () => {
-    shallow(<Header />);
+    const wrapper = shallow(<Header />);
+    expect(wrapper.exists()).toBeTruthy();
   });
 
   it('renders img and h1 tags', () => {

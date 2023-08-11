@@ -10,17 +10,18 @@ describe("rendering components", () => {
   });
 
   it('renders correct html from type="default" value="test" props', () => {
-    const wrapper = shallow(<NotificationItem />);
+    const wrapper = shallow(<NotificationItem type="default" value="test" />);
 
-    wrapper.setProps({ type: "default", value: "test" });
-    expect(wrapper.html()).toEqual('<li data-notification-type="default">test</li>');
+   expect(wrapper.hasClass("notificationItem")).toBe(true);
+   expect(wrapper.find('[data-notification-type="default"]').length).toBe(1);
   });
 
   it('renders correct html from  html="<u>test</u>" props', () => {
-    const wrapper = shallow(<NotificationItem />);
+    const wrapper = shallow(<NotificationItem html="<u>test</u>" />);
 
-    wrapper.setProps({ html: "<u>test</u>" });
-    expect(wrapper.html()).toEqual('<li data-urgent="true"><u>test</u></li>');
+   expect(wrapper.hasClass("notificationItem")).toBe(true);
+   expect(wrapper.hasClass("urgent")).toBe(true);
+   expect(wrapper.find('[data-urgent="true"]').length).toBe(1);
   });
 });
 

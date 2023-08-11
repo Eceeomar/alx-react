@@ -2,8 +2,19 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import CourseList from './CourseList';
 import CourseListRow from './CourseListRow';
+import { StyleSheetTestUtils } from 'aphrodite';
+
 
 describe('<CourseList />', () => {
+
+  beforeEach(() => {
+    StyleSheetTestUtils.suppressStyleInjection();
+  });
+
+  afterEach(() => {
+    StyleSheetTestUtils.clearBufferAndResumeStyleInjection();
+  });
+  
   // Check that it renders CourseList component without crashing
   it('renders CourseList component without crashing', () => {
     shallow(<CourseList />);
