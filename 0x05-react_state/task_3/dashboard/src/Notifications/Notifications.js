@@ -1,33 +1,27 @@
-import React, { Component } from "react";
+import React, { Component, PureComponent } from "react";
 import { StyleSheet, css } from 'aphrodite'
 import closeIcon from "../assets/close-icon.png";
 import NotificationItem from "./NotificationItem";
 import PropTypes from "prop-types";
 import NotificationItemShape from "./NotificationItemShape";
 
-class Notifications extends Component {
-  constructor(props) {
-    super(props);
-
-    this.markAsRead = this.markAsRead.bind(this);
-  }
-
-  shouldComponentUpdate(nextProps) {
-    return nextProps.length > this.props.listNotifications.length;
-  }
-
-  markAsRead(id) {
-    console.log(`Notification ${id} has been marked as read`);
-  }
+class Notifications extends PureComponent {
 
   render() {
-   
+   const {
+    displayDrawer,
+    listNotifications,
+    handleDisplayDrawer,
+    handleHideDrawer,
+    markNotificationAsRead,
+   } = this.props;
     return (
       <React.Fragment>
-        <div className={css(styles.menuItem)}>
-          <p>Your notifications</p>
+        {!displayDrawer ? (
+          <div className={css(styles.menuItem)} >
+          <p onClick={this.props.handleDisplayDrawer}>Your notifications</p>
         </div>
-        {this.props.displayDrawer ? (
+        ) : (
           <div className={css(styles.notifications)}>
             <button
               style={{
@@ -45,7 +39,9 @@ class Notifications extends Component {
               aria-label="Close"
               onClick={(e) => {
                 console.log("Close button has been clicked");
+                this.props.handleHideDrawer();
               }}
+
             >
               <img src={closeIcon} alt="close icon" width="10px" className={css(styles.img)} />
             </button>
@@ -57,7 +53,7 @@ class Notifications extends Component {
               })}
             </ul>
           </div>
-        ) : null}
+        )}
       </React.Fragment>
     );
   }
@@ -72,7 +68,7 @@ const styles = StyleSheet.create({
     right: '1rem',
     width: '25%',
 
-    '@media (max-width: 450px)': {
+    '@media (max-width: 900px)': {
       display: 'block',
       height: '100%',
       width: '100%',
@@ -83,8 +79,14 @@ const styles = StyleSheet.create({
       border: 'none',
       fontSize: '20px',
       padding: '0',
-      backgroundColor: '#fff',
+      backgroundColor: '#fff8f8',
       border: '10px solid gray'
+    },
+  },
+  button: {
+    "@media (max-width: 900px)": {
+      position: "relative",
+      float: "right",
     },
   },
   img: {
@@ -93,7 +95,31 @@ const styles = StyleSheet.create({
   menuItem: {
     textAlign: 'right',
     zIndex: 1,
+    position: "relative",
+    ":hover": {
+      cursor: "pointer",
+      animationName: [
+        {
+        "0%" : { opacity: 0.5 },
+        "100%" : { opacity: 1 },
+        },
+        {
+          "0%": { transform: "translateY(0px)" },
+          "33%": { transform: "translateY(-5px)" },
+          "66%": { transform: "translateY(5px)" },
+          "100%": { transform: "translateY(0px)" },
+        }
+      ],
+      animationDuration: "1s, 0.5s",
+      animationIterationCount: "3",
+    },
 },
+
+ul: {
+    "@media (max-width: 900px)": {
+      padding: 0,
+    },
+}
   // "notification-header": {
   //   display: "flex",
   //   justifyContent: "space-between",
@@ -112,6 +138,8 @@ const styles = StyleSheet.create({
 Notifications.propTypes = {
   displayDrawer: PropTypes.bool,
   listNotifications: PropTypes.arrayOf(NotificationItemShape),
+  handleDisplayDrawer: PropTypes.func.isRequired,
+  handleHideDrawer: PropTypes.func.isRequired,
 };
 
 Notifications.defaultProps = {
