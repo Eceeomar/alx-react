@@ -1,1 +1,1 @@
-Solution to the 0x04. React inline styling task
+Solution to the 0x05 -react_state task.

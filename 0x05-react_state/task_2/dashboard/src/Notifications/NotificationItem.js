@@ -7,10 +7,22 @@ class NotificationItem extends React.PureComponent {
     const { type, value, html, markAsRead, id } = this.props;
     const styles = StyleSheet.create({
       notificationItem: {
-        color: '#0d0563'
+        color: '#0d0563',
+        "@media (max-width: 450px)": {
+          borderBottom: "1px solid black",
+          listStyle: "none",
+          fontSize: "20px",
+          padding: "10px 8px",
+        },
       },
       urgent: {
-        color: '#e0354b'
+        color: '#e0354b',
+        "@media (max-width: 450px)": {
+          borderBottom: "1px solid black",
+          listStyle: "none",
+          fontSize: "20px",
+          padding: "10px 8px",
+        },
       },
     });
     
